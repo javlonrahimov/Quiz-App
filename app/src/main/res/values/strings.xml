@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Quiz</string>
+    <string name="all_questions">All Questions:</string>
+    <string name="time">Time:</string>
+    <string name="correct">Correct:</string>
+    <string name="check">Check</string>
+    <string name="submit">Submit</string>
+    <string name="icon_infinity">icon_infinity</string>
+    <string name="icon_time">icon_time</string>
+    <string name="select_the_appropriate_country">Select the appropriate country</string>
+    <string name="flag">flag</string>
+</resources>
