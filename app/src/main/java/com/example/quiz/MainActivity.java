@@ -3,6 +3,7 @@ package com.example.quiz;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -21,24 +22,26 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView currentPosition, questionAmount, timer;
-    ImageView imageFLag;
-    QuizManager manager;
-    int timerCount = 0;
-    RadioGroup radioGroup;
-    boolean hasCheckedTheLastOne = false;
+    private TextView mCurrentPosition;
+    private TextView mTimer;
+    private ImageView mImageFLag;
+    private EditText editText;
+    private QuizManager mManager;
+    private int mTimerCount = 0;
+    private RadioGroup mRadioGroup;
+    private boolean mHasCheckedTheLastOne = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         loadViews();
-        loadDataToView(manager.getQuestionAt(manager.getPosition()));
+        loadDataToView(mManager.getQuestionAt(mManager.getPosition()));
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                timerCount++;
-                runOnUiThread(() -> timer.setText(getFormattedTime(timerCount)));
+                mTimerCount++;
+                runOnUiThread(() -> mTimer.setText(getFormattedTime(mTimerCount)));
             }
         }, 1000, 1000);
     }
@@ -56,60 +59,79 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadViews() {
-        manager = new QuizManager(getQuestions());
-        currentPosition = findViewById(R.id.currentPosition);
-        questionAmount = findViewById(R.id.questionsAmount);
-        timer = findViewById(R.id.timer);
-        imageFLag = findViewById(R.id.imageFlag);
-        radioGroup = findViewById(R.id.radioGroup);
-        questionAmount.setText(String.valueOf(manager.getAllQuestionCount()));
+        mManager = new QuizManager(getQuestions());
+        mCurrentPosition = findViewById(R.id.currentPosition);
+        TextView mQuestionAmount = findViewById(R.id.questionsAmount);
+        mTimer = findViewById(R.id.timer);
+        editText = findViewById(R.id.editText);
+        mImageFLag = findViewById(R.id.imageFlag);
+        mRadioGroup = findViewById(R.id.radioGroup);
+        mQuestionAmount.setText(String.valueOf(mManager.getAllQuestionCount()));
     }
 
     private void loadDataToView(QuestionModel questionModel) {
-        currentPosition.setText(String.valueOf(manager.getPosition() + 1));
-        imageFLag.setImageResource(questionModel.getImagePath());
-        radioGroup.clearCheck();
-        ((RadioButton) radioGroup.getChildAt(0)).setText(questionModel.getVariantA());
-        ((RadioButton) radioGroup.getChildAt(1)).setText(questionModel.getVariantB());
-        ((RadioButton) radioGroup.getChildAt(2)).setText(questionModel.getVariantC());
-        ((RadioButton) radioGroup.getChildAt(3)).setText(questionModel.getVariantD());
+        mCurrentPosition.setText(String.valueOf(mManager.getPosition() + 1));
+        mImageFLag.setImageResource(questionModel.getImagePath());
+        mRadioGroup.clearCheck();
+        if (mManager.getPosition() < 8) {
+            ((RadioButton) mRadioGroup.getChildAt(0)).setText(questionModel.getVariantA());
+            ((RadioButton) mRadioGroup.getChildAt(1)).setText(questionModel.getVariantB());
+            ((RadioButton) mRadioGroup.getChildAt(2)).setText(questionModel.getVariantC());
+            ((RadioButton) mRadioGroup.getChildAt(3)).setText(questionModel.getVariantD());
+        } else {
+            mRadioGroup.setVisibility(View.INVISIBLE);
+            editText.setVisibility(View.VISIBLE);
+            editText.setText("");
+        }
     }
 
     public void onSubmitButtonClicked(View view) {
-        Toast.makeText(this, "Correct answers: " + manager.getCorrects(), Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(this, ResultActivity.class);
+        intent.putExtra(ResultActivity.CORRECT_ANSWERS,mManager.getCorrects());
+        intent.putExtra(ResultActivity.TIME,mTimer.getText().toString());
+        startActivity(intent);
         finish();
-        startActivity(new Intent(this, MainActivity.class));
     }
 
     public void onNextButtonClicked(View view) {
-        if (manager.hasNext()) {
-            if (getSelected() != -1) {
-                manager.check(getSelected());
-                manager.setPosition(manager.getPosition() + 1);
-                loadDataToView(manager.getQuestionAt(manager.getPosition()));
+        if (mManager.hasNext()) {
+            if (mManager.getPosition() > 7) {
+                if (!editText.getText().toString().equals("")){
+                    mManager.checkEditText(editText.getText().toString());
+                    mManager.setPosition(mManager.getPosition() + 1);
+                    loadDataToView(mManager.getQuestionAt(mManager.getPosition()));
+                }else {
+                    Toast.makeText(this, "Please write an answer", Toast.LENGTH_SHORT).show();
+                }
             } else {
-                Toast.makeText(this, "Please select an option", Toast.LENGTH_SHORT).show();
+                if (getSelected() != -1) {
+                    mManager.checkRadioButton(getSelected());
+                    mManager.setPosition(mManager.getPosition() + 1);
+                    loadDataToView(mManager.getQuestionAt(mManager.getPosition()));
+                } else {
+                    Toast.makeText(this, getString(R.string.select_option), Toast.LENGTH_SHORT).show();
+                }
             }
         } else {
-            if (hasCheckedTheLastOne) {
-                Toast.makeText(this, "Correct answers: " + manager.getCorrects(), Toast.LENGTH_LONG).show();
+            if (mHasCheckedTheLastOne) {
+                Toast.makeText(this, getString(R.string.correct_answers) + mManager.getCorrects(), Toast.LENGTH_LONG).show();
                 finish();
                 startActivity(new Intent(this, MainActivity.class));
             } else {
-                if (getSelected() != -1) {
-                    manager.check(getSelected());
+                if (!editText.getText().toString().equals("")){
+                    mManager.checkEditText(editText.getText().toString());
                     findViewById(R.id.nexButton).setVisibility(View.INVISIBLE);
-                    hasCheckedTheLastOne = true;
-                } else {
-                    Toast.makeText(this, "Please select an option", Toast.LENGTH_SHORT).show();
+                    mHasCheckedTheLastOne = true;
+                }else {
+                    Toast.makeText(this, "Please write an answer", Toast.LENGTH_SHORT).show();
                 }
             }
         }
     }
 
     private int getSelected() {
-        for (int i = 0; i < radioGroup.getChildCount(); i++) {
-            if (((RadioButton) radioGroup.getChildAt(i)).isChecked()) {
+        for (int i = 0; i < mRadioGroup.getChildCount(); i++) {
+            if (((RadioButton) mRadioGroup.getChildAt(i)).isChecked()) {
                 return i;
             }
         }

@@ -3,10 +3,26 @@
     <string name="all_questions">All Questions:</string>
     <string name="time">Time:</string>
     <string name="correct">Correct:</string>
+    <string name="correct1">Correct</string>
+    <string name="wrong1">Wrong</string>
     <string name="check">Check</string>
     <string name="submit">Submit</string>
     <string name="icon_infinity">icon_infinity</string>
     <string name="icon_time">icon_time</string>
     <string name="select_the_appropriate_country">Select the appropriate country</string>
     <string name="flag">flag</string>
+    <string name="select_option">Please select an option</string>
+    <string name="correct_answers">Correct answers: </string>
+    <string name="final_question">Final Question</string>
+    <string name="before_getting_the_results_please_select_the_countries_that_are_situated_in_asia">Before getting the results please select the countries that are situated in Asia.</string>
+    <string name="usa">USA</string>
+    <string name="china">China</string>
+    <string name="australia">Australia</string>
+    <string name="uae">UAE</string>
+    <string name="india">India</string>
+    <string name="nigeria">Nigeria</string>
+    <string name="results">Results</string>
+    <string name="final_question1">Final question:</string>
+    <string name="show_results">Show results</string>
+    <string name="write_the_name_of_the_country">write the name of the country</string>
 </resources>

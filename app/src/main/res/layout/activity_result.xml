@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ResultActivity">
+
+    <LinearLayout
+        android:id="@+id/finalQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin8"
+        android:orientation="vertical"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/final_question"
+            android:textSize="@dimen/textSize28" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/before_getting_the_results_please_select_the_countries_that_are_situated_in_asia"
+            android:textAlignment="center"
+            android:textSize="@dimen/textSize20" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <CheckBox
+                android:id="@+id/usa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin8"
+                android:text="@string/usa"
+                android:textSize="@dimen/textSize18" />
+
+            <CheckBox
+                android:id="@+id/china"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin8"
+                android:layout_toEndOf="@id/usa"
+                android:text="@string/china"
+                android:textSize="@dimen/textSize18" />
+
+            <CheckBox
+                android:id="@+id/australia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin8"
+                android:layout_toEndOf="@id/china"
+                android:text="@string/australia"
+                android:textSize="@dimen/textSize18" />
+
+            <CheckBox
+                android:id="@+id/uae"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/usa"
+                android:layout_margin="@dimen/margin8"
+                android:text="@string/uae"
+                android:textSize="@dimen/textSize18" />
+
+            <CheckBox
+                android:id="@+id/india"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/usa"
+                android:layout_margin="@dimen/margin8"
+                android:layout_toEndOf="@id/uae"
+                android:text="@string/india"
+                android:textSize="@dimen/textSize18" />
+
+            <CheckBox
+                android:id="@+id/nigeria"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/usa"
+                android:layout_margin="@dimen/margin8"
+                android:layout_toEndOf="@id/china"
+                android:text="@string/nigeria"
+                android:textSize="@dimen/textSize18" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/results"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/margin4"
+            android:text="@string/results"
+            android:textSize="@dimen/textSize28" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin4"
+                android:text="@string/correct"
+                android:textSize="@dimen/textSize20" />
+
+            <TextView
+                android:id="@+id/correctAnswersResult"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin4"
+                android:textSize="@dimen/textSize20"
+                tools:text="7" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin4"
+                android:text="@string/time"
+                android:textSize="@dimen/textSize20" />
+
+            <TextView
+                android:id="@+id/timeResult"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin4"
+                android:textSize="@dimen/textSize20"
+                tools:text="07 : 58" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin4"
+                android:text="@string/final_question1"
+                android:textSize="@dimen/textSize20" />
+
+            <TextView
+                android:id="@+id/finalQuestionResult"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin4"
+                android:textSize="@dimen/textSize20"
+                tools:text="Correct" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:onClick="onShowResultClicked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin8"
+        android:text="@string/show_results"
+        android:textSize="@dimen/textSize20"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

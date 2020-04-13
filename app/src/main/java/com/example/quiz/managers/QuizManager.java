@@ -57,8 +57,14 @@ public class QuizManager {
         return corrects;
     }
 
-    public void check(int index) {
+    public void checkRadioButton(int index) {
         if (getStringByIndex(index).equalsIgnoreCase(list.get(position).getVariantTrue())) {
+            corrects++;
+        }
+    }
+
+    public void checkEditText(String string){
+        if (string.trim().equalsIgnoreCase(list.get(position).getVariantTrue())){
             corrects++;
         }
     }
